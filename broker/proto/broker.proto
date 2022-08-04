@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package broker;
+
+option go_package = "broker/proto";
+
+service Broker {
+  rpc Subscribe(SubscribeRequest) returns (stream MessageResponse);
+  rpc Publish (PublishRequest) returns (PublishResponse);
+}
+
+message SubscribeRequest {
+  string queue = 1;
+}
+
+message MessageResponse {
+  bytes body = 1;
+}
+
+message PublishRequest {
+  string queue = 1;
+  bytes body = 2;
+}
+
+message PublishResponse {
+  int64 messageID = 1;
+}
+
